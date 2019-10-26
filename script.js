@@ -102,6 +102,7 @@ function getResults(){
  */
 function calculateAverage(){
   var avg = 0;
+  if(games.length === 0) return 0;
   for(let i = 0; i < games.length; i++){
     avg += games[i];
   }
