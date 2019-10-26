@@ -54,7 +54,10 @@ function play() {
   var count = 0;
   while(gisk !== random){
     gisk = prompt('Giskaðu á tölu milli '+min+' og '+max+'.');
-    if(gisk === null) return false;
+    if(gisk === null){
+      alert("Hætt í leik.")
+      return false;
+    } 
     if(parseGuess(gisk) === null){
       alert("Ekki tala!\nÞetta telst sem ágískun í refsingu!");
       count++;
@@ -86,7 +89,7 @@ function getResults(){
   if(games.length === 0){
     resault = 'Þú spilaðir engann leik >_<';
   }
-  else if(games.length%10 == 1 && games.length%100 != 11){
+  else if(games.length%10 === 1 && games.length%100 !== 11){
     resault = 'Þú spilaðir '+games.length+' leik.\nMeðalfjöldi ágiskana var '+calculateAverage()+'.';
   }
   else{
