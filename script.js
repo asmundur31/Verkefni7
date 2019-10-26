@@ -54,12 +54,21 @@ function play() {
   var count = 0;
   while(gisk !== random){
     gisk = prompt('Giskaðu á tölu milli '+min+' og '+max+'.');
-    if(!parseGuess(gisk)) return false;
-    gisk = parseGuess(gisk);
-    count++;
-    alert(getResponse(gisk,random));
+    if(gisk === null) return false;
+    if(parseGuess(gisk) === null){
+      alert("Ekki tala!\nÞetta telst sem ágískun í refsingu!");
+      count++;
+    }
+    else if(gisk === ''){
+      alert('Vinsamlegast sláðu inn tölu!');
+    }
+    else {
+      gisk = parseGuess(gisk);
+      count++;
+      alert(getResponse(gisk,random));
+    }
   }
-  if(gisk) games.push(count);
+  games.push(count);
   return true;
 }
 
