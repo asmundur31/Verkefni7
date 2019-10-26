@@ -47,7 +47,7 @@ function start() {
  * play() skilar true ef leikur kláraðist annars false
  */
 function play() {
-  const min = 1;
+  const min = 0;
   const max = 100;
   const random = randomNumber(min,max);
   var gisk;
