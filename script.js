@@ -83,7 +83,10 @@ function play() {
  */
 function getResults(){
   var resault;
-  if(games.length%10 == 1 && games.length%100 != 11){
+  if(games.length === 0){
+    resault = 'Þú spilaðir engann leik >_<';
+  }
+  else if(games.length%10 == 1 && games.length%100 != 11){
     resault = 'Þú spilaðir '+games.length+' leik.\nMeðalfjöldi ágiskana var '+calculateAverage()+'.';
   }
   else{
@@ -102,7 +105,6 @@ function getResults(){
  */
 function calculateAverage(){
   var avg = 0;
-  if(games.length === 0) return 0;
   for(let i = 0; i < games.length; i++){
     avg += games[i];
   }
