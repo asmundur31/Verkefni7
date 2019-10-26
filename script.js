@@ -23,9 +23,10 @@
   * Ef notandi ýtir á "cancel" þá er sótt niðurstöður með getResults() og þær birtar með alert().
   */
 function start() {
-  play();
-  while(confirm('Viltu spila annan leik?')){
-    play();
+  if(play()) {
+    while(confirm('Viltu spila annan leik?')){
+      if(!play()) break;
+    }
   }
   alert(getResults());
 }
@@ -43,6 +44,7 @@ function start() {
  *  - t.d. með því að nota break í lykkju.
  * 
  * Þarf aðútfæra með lykkju og flæðisstýringum
+ * play() skilar true ef leikur kláraðist annars false
  */
 function play() {
   const min = 1;
@@ -52,12 +54,13 @@ function play() {
   var count = 0;
   while(gisk !== random){
     gisk = prompt('Giskaðu á tölu milli '+min+' og '+max+'.');
-    if(parseGuess(gisk) === null) break;
+    if(!parseGuess(gisk)) return false;
     gisk = parseGuess(gisk);
     count++;
     alert(getResponse(gisk,random));
   }
-  games.push(count);
+  if(gisk) games.push(count);
+  return true;
 }
 
 /**
@@ -70,12 +73,12 @@ function play() {
  *    "Þú spilaðir engann leik >_<"
  */
 function getResults(){
-  const resault;
+  var resault;
   if(games.length%10 == 1 && games.length%100 != 11){
-    resault = 'Þú spilaðir '+games.length+' leik.\n Meðalfjöldi ágiskana var '+calculateAverage();
+    resault = 'Þú spilaðir '+games.length+' leik.\nMeðalfjöldi ágiskana var '+calculateAverage()+'.';
   }
   else{
-    resault = 'Þú spilaðir '+games.length+' leiki.\n Meðalfjöldi ágiskana var '+calculateAverage();
+    resault = 'Þú spilaðir '+games.length+' leiki.\nMeðalfjöldi ágiskana var '+calculateAverage()+'.';
   }
   return resault;
 }
@@ -93,7 +96,7 @@ function calculateAverage(){
   for(let i = 0; i < games.length; i++){
     avg += games[i];
   }
-  return avg/games.length;
+  return (avg/games.length).toFixed(2);
 }
 
 /**
